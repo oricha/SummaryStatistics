@@ -17,35 +17,38 @@ import com.example.SummaryStatistics.domain.Transaction;
 
 @Service
 public class StatisticsService {
-	
 
 	NavigableMap<Long, Double> transMap = Collections
 			.synchronizedNavigableMap(new TreeMap<Long, Double>());
 
 	public void addTransaction(Transaction param) throws MyCustomException {
-		
+
 		long nowMinus60s = Instant.now().plusSeconds(-60).toEpochMilli();
-		
-		if(param.getTimestamp() < nowMinus60s){
-			throw new  MyCustomException("No Valid TimeStamp");
+
+		if (param.getTimestamp() < nowMinus60s) {
+			throw new MyCustomException("No Valid TimeStamp");
 		}
 		transMap.put(param.getTimestamp(), param.getAmount());
 	}
 
-	public Statistics getstatistics() throws ParseException{
-		
+	public Statistics getstatistics() throws ParseException {
+
 		Statistics statistics = new Statistics();
 		long nowMinus60s = Instant.now().plusSeconds(-60).toEpochMilli();
 
-		Map<Long, Double> subMap = transMap.subMap(nowMinus60s, Instant.now().toEpochMilli());
-		
-		DoubleSummaryStatistics sumaryStat= subMap.values().parallelStream().collect(Collectors.summarizingDouble(Double::doubleValue));
-		statistics.setAvg(sumaryStat.getAverage());
-		statistics.setMax(sumaryStat.getMax());
-		statistics.setMin(sumaryStat.getMin());
-		statistics.setCount(sumaryStat.getCount());
-		statistics.setSum(sumaryStat.getSum());
-		
+		Map<Long, Double> subMap = transMap.subMap(nowMinus60s, Instant.now()
+				.toEpochMilli());
+
+		if (!subMap.isEmpty()) {
+			DoubleSummaryStatistics sumaryStat = subMap.values()
+					.parallelStream()
+					.collect(Collectors.summarizingDouble(Double::doubleValue));
+			statistics.setAvg(sumaryStat.getAverage());
+			statistics.setMax(sumaryStat.getMax());
+			statistics.setMin(sumaryStat.getMin());
+			statistics.setCount(sumaryStat.getCount());
+			statistics.setSum(sumaryStat.getSum());
+		}
 		return statistics;
 	}
 

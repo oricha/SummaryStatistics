@@ -27,16 +27,16 @@ public class StatisticsServiceTests {
 	@Test
 	public void testAddTransaction() throws Exception {
 		
-		long now = Instant.now().minus(3, ChronoUnit.SECONDS).toEpochMilli();
+		long now = Instant.now().toEpochMilli();
 
 		Transaction trans1 = new Transaction(now, new Double(10) );
 		service.addTransaction(trans1);
 		
-		now = Instant.now().minus(3, ChronoUnit.SECONDS).toEpochMilli();
+		now = Instant.now().minus(1, ChronoUnit.SECONDS).toEpochMilli();
 		Transaction trans2 = new Transaction(now, new Double(20) );
 		service.addTransaction(trans2);
 		
-		now = Instant.now().minus(10, ChronoUnit.SECONDS).toEpochMilli();
+		now = Instant.now().minus(2, ChronoUnit.SECONDS).toEpochMilli();
 		Transaction trans3 = new Transaction(now, new Double(30) );
 		service.addTransaction(trans3);
 		
@@ -46,4 +46,6 @@ public class StatisticsServiceTests {
 		assertEquals(new Double(30), stats.getMax());
 		assertEquals(new Double(10), stats.getMin());
 	}
+	
+	
 }

@@ -1,6 +1,7 @@
 package com.example.SummaryStatistics.controller;
 
 import java.text.ParseException;
+import java.time.Instant;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -36,6 +37,7 @@ public class StatisticsController {
 	public ResponseEntity<Void> addTransactions(@RequestBody Transaction param) {
 
 		try {
+//			param.setTimestamp(Instant.now().toEpochMilli());
 			service.addTransaction(param);
 			
 		} catch (MyCustomException e) {
