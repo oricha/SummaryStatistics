@@ -16,7 +16,7 @@ import com.example.SummaryStatistics.domain.Transaction;
 @RunWith(SpringJUnit4ClassRunner.class)
 public class StatisticsServiceTests {
 
-	StatisticsService service;
+	private StatisticsService service;
 	
 	@Before
 	public void setUp() {
