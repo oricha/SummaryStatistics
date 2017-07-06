@@ -2,13 +2,13 @@
 Example using Summary Statistics and ThreadSafe Data Structures
 
 ```
-./gradlew build
-./gradlew test --debug
+$gradle build
+$gradle test --debug
 ```
 
 ### Run App
 ```
-./gradlew bootrun
+$gradle bootrun
 ```
 
 ### EndPoints
